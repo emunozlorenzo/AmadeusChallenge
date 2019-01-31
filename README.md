@@ -34,8 +34,8 @@ The data is avalible at http://export.airconomy.com/candidates/
 
 ### How to manage big files in chunks?
 
-'''
-\# Reading CSV with Chunksize (Original File has 10.000)
+```
+\# Reading CSV with Chunksize (Original File has 10.000.000 of rows)
 
 df = pd.read_csv ('bookings.csv.bz2', sep = '^', usecols = ['arr_port', 'pax', 'year'],chunksize = 1000000)
 
@@ -61,4 +61,4 @@ for chunk in df:
 
 top10_ports_2013 = sum_chunks.groupby(sum_chunks.index).pax.sum().sort_values(ascending = False).head(10).reset_index()
 
-'''
+```
