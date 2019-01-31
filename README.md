@@ -29,3 +29,36 @@ The data is avalible at http://export.airconomy.com/candidates/
 5. [__Write a Web Service__](https://github.com/emunozlorenzo/AmadeusChallenge/blob/master/ch_05.empty.ipynb)
   - Wrap the output of the second exercise in a web service that returns the data in JSON format (instead of printing to the standard output).
   - The web service should accept a parameter n>0. For the top 10 airports, n is 10. For the X top airports, n is
+
+## Tips
+
+### How to manage big files in chunks?
+
+'''
+\# Reading CSV with Chunksize (Original File has 10.000)
+
+df = pd.read_csv ('bookings.csv.bz2', sep = '^', usecols = ['arr_port', 'pax', 'year'],chunksize = 1000000)
+
+\# Creating DataFrame where we are going to save the results of these chunks
+
+sum_chunks = pd.DataFrame()
+
+\# Loop to open all the chunks and execute the commands
+
+k=0
+for chunk in df:
+    k += 1
+    filtered_chunk = chunk[chunk['year'] == 2013]
+    filtered_chunk.drop ('year', axis =1, inplace=True)
+    nulls = filtered_chunk['pax'].isnull().sum()
+    print ("Chunk %d: size of chunk %d, Null Values: %s"% (k,len(chunk),nulls))
+    filtered_chunk.dropna(inplace=True)
+    arr_ports = filtered_chunk.groupby ('arr_port')
+    chunk_result = arr_ports.sum()
+    sum_chunks = sum_chunks.append(chunk_result)
+
+\# Using the file made of chunks to get the result
+
+top10_ports_2013 = sum_chunks.groupby(sum_chunks.index).pax.sum().sort_values(ascending = False).head(10).reset_index()
+
+'''
