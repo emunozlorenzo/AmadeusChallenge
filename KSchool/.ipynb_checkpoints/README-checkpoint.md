@@ -1,15 +1,5 @@
 # AmadeusChallenge
 Data Science Challenge for the recruiting process at Amadeus (Master in Data Science KSchool)
-
-* Get familiar with the data
-* Select columns of interest
-* Decide what to do with NaNs
-* Make processing plan
-* Develop code that works with a sample
-* Adjust the code to work with Big data
-* Test big data approach on a sample
-* Run program with big data
-
 ## Instructions
 The data is avalible at http://export.airconomy.com/candidates/
 
